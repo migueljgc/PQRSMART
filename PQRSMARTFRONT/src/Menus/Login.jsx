@@ -22,11 +22,11 @@ function Login() {
         checkLoginStatus();
     }, []);
     const checkLoginStatus = () => {
-        const logged = localStorage.getItem('logget') === 'true';
+        const logged = localStorage.getItem('loggetPQRSMART') === 'true';
         setIsLogged(logged);
-        console.log('Logget: ', logged);
+        console.log('loggetPQRSMART: ', logged);
         if (logged) {
-            const userData = JSON.parse(localStorage.getItem('user'));
+            const userData = JSON.parse(localStorage.getItem('userPQRSMART'));
             if (userData) {
                 const { role } = userData;
                 if (role === 'ADMIN') {
@@ -54,8 +54,8 @@ function Login() {
                 console.log(responseData)
 
                 const { token, authorities } = response.data;
-                localStorage.setItem('token', token);
-                localStorage.setItem('user', JSON.stringify({ user, role: authorities[0] })); // Assuming single role
+                localStorage.setItem('tokenPQRSMART', token);
+                localStorage.setItem('userPQRSMART', JSON.stringify({ user, role: authorities[0] })); // Assuming single role
                 const response1 = await axios.get('http://localhost:8080/api/auth/editar', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -74,13 +74,13 @@ function Login() {
                 localStorage.setItem('users', users);
                 if (authorities.includes('ADMIN')) {
                     window.location.href = '/HomePagesAdmin';
-                    localStorage.setItem('logget', true);
+                    localStorage.setItem('loggetPQRSMART', true);
                 } else if (authorities.includes('USER')) {
                     window.location.href = '/HomePage';
-                    localStorage.setItem('logget', true);
+                    localStorage.setItem('loggetPQRSMART', true);
                 } else if (authorities.includes('SECRE')) {
                     window.location.href = '/HomePagesSecre';
-                    localStorage.setItem('logget', true);
+                    localStorage.setItem('loggetPQRSMART', true);
                 } else {
 
                     window.location.href = '/';

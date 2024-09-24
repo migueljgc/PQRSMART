@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'http://localhost:8080'; // Ajusta esto según tu confi
 // Interceptor de solicitudes para agregar el token JWT
 axios.interceptors.request.use(
     config => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('tokenPQRSMART');
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token;
         }
