@@ -113,7 +113,7 @@ public class RequestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar la solicitud");
         }
 
-
+        System.out.println(savedRequest);
         try{
 
                 // Generar PDF con iText
@@ -131,14 +131,14 @@ public class RequestController {
                 document.add(new Paragraph(" "));
                 document.add(new Paragraph("Usuario: " + user.getName()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("Tipo de Solicitud: " + request.getRequestType().getNameRequestType()));
+                document.add(new Paragraph("Tipo de Solicitud: " + savedRequest.getRequestType().getNameRequestType()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("Categoría: " + request.getCategory().getNameCategory()));
+                document.add(new Paragraph("Categoría: " + savedRequest.getCategory().getNameCategory()));
                 document.add(new Paragraph(" "));
                 document.add(new Paragraph("Detalle de la Solicitud: " ));
                 document.add(new Paragraph( request.getDescription()));
                 document.add(new Paragraph(" "));
-                document.add(new Paragraph("Estado Actual de la Solicitud: " + request.getRequestState().getNameRequestState()));
+                document.add(new Paragraph("Estado Actual de la Solicitud: " + savedRequest.getRequestState().getNameRequestState()));
 
                 document.close();
 
