@@ -253,9 +253,7 @@ const Crear = () => {
                                 value={formData.mediumAnswer}
                                 onChange={handleChange}
                                 required>
-                                <option value="">Seleccione el tipo</option>
                                 <option value="Correo">Correo</option>
-                                <option value="Numero">Numero</option>
                             </select>
                         </div>
                         <div className="form-group">
