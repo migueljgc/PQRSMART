@@ -1,5 +1,6 @@
 package Proyecto.PQRSMART.Domain.Service;
 
+import Proyecto.PQRSMART.Config.Exception.Exceptions;
 import Proyecto.PQRSMART.Controller.models.AuthResponse;
 import Proyecto.PQRSMART.Controller.models.AuthenticationRequest;
 import Proyecto.PQRSMART.Controller.models.RegisterRequest;
@@ -31,6 +32,24 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse register(RegisterRequest request) {
+        if (userRepository.existsByUser(request.getUser())) {
+            throw new Exceptions.UserAlreadyExistsException("El usuario ya existe.");
+        }
+
+        // Verificar si el email ya existe
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new Exceptions.EmailAlreadyExistsException("El correo electrónico ya está en uso.");
+        }
+
+        // Verificar si el número de identificación ya existe
+        if (userRepository.existsByIdentificationNumber(request.getIdentificationNumber())) {
+            throw new Exceptions.IdentificationNumberAlreadyExistsException("El número de identificación ya está registrado.");
+        }
+        // Verificar si el número de numero ya existe
+        if (userRepository.existsByNumber(request.getNumber())) {
+            throw new Exceptions.NumberAlreadyExistsException("El número ya está registrado.");
+        }
+
         var user = User.builder()
                 .user(request.getUser())
                 .name(request.getName())
@@ -46,6 +65,7 @@ public class AuthServiceImpl implements AuthService {
                 .dependence(request.getDependence())
                 .build();
         userRepository.save(user);
+
         var jwtToken = jwtService.genereteToken((UserDetails) user);
         // Enviar correo electrónico de activación
         String activationLink1 = "http://localhost:5173/activate/"+jwtToken;
@@ -80,6 +100,23 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse registerUser(RegisterRequest request) {
+        if (userRepository.existsByUser(request.getUser())) {
+            throw new Exceptions.UserAlreadyExistsException("El usuario ya existe.");
+        }
+
+        // Verificar si el email ya existe
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new Exceptions.EmailAlreadyExistsException("El correo electrónico ya está en uso.");
+        }
+
+        // Verificar si el número de identificación ya existe
+        if (userRepository.existsByIdentificationNumber(request.getIdentificationNumber())) {
+            throw new Exceptions.IdentificationNumberAlreadyExistsException("El número de identificación ya está registrado.");
+        }
+        // Verificar si el número de numero ya existe
+        if (userRepository.existsByNumber(request.getNumber())) {
+            throw new Exceptions.NumberAlreadyExistsException("El número ya está registrado.");
+        }
         var user = User.builder()
                 .user(request.getUser())
                 .name(request.getName())
