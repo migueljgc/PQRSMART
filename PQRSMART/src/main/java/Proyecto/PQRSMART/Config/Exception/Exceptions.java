@@ -1,7 +1,7 @@
 package Proyecto.PQRSMART.Config.Exception;
 
 public class Exceptions {
-    
+
     // Excepción para cuando el usuario ya existe
     public static class UserAlreadyExistsException extends RuntimeException {
         public UserAlreadyExistsException(String message) {
