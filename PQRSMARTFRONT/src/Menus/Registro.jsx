@@ -103,6 +103,8 @@ const Registro = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setConfirmPasswordError('')
+        setPasswordError('')
         const isValidPassword = validatePassword(formData.contraseña);
         if (!isValidPassword) {
             setPasswordError('La contraseña debe tener mínimo 8 caracteres, al menos un número, un signo y una letra mayúscula.');
@@ -125,6 +127,8 @@ const Registro = () => {
             const selectedIdentificationType = identificationTypes.find(type => type.idIdentificationType === parseInt(formData.tipoIdentificacion));
             const selectedPersonType = personTypes.find(type => type.idPersonType === parseInt(formData.tipoPersona));
             if (formData.contraseña === formData.confirmarContraseña) {
+                setError('Espere.......')
+                setShowPopup(true); // Mostrar popup
                 const userResponse = await axios.post('http://localhost:8080/api/auth/registerUser', {
                     personType: { idPersonType: selectedPersonType.idPersonType },
                     name: formData.nombre,
@@ -138,12 +142,14 @@ const Registro = () => {
                     number: parseInt(formData.numero)
                 });
 
-                alert('Se ha enviado un mensaje de verificacion a su correo, si no le aparece verifique la carpeta de spam.');
                 console.log('Respuesta al guardar usuario:', userResponse.data);
                 console.log('Usuario registrado correctamente');
                 setConfirmPasswordError('')
                 setPasswordError('')
                 handleReset();
+                setError('Se ha enviado un mensaje de verificacion a su correo, si no le aparece verifique la carpeta de spam.')
+                setShowPopup(true); // Mostrar popup
+                return;
 
             }
             else {
@@ -156,14 +162,14 @@ const Registro = () => {
             // Manejo de errores
             if (status === 'El correo electrónico ya está en uso.') {
                 setError('El correo electrónico ya está en uso.');
-            }else if (status === 'El usuario ya existe.') {
+            } else if (status === 'El usuario ya existe.') {
                 setError("El usuario ya existe.");
             } else if (status === 'El número de identificación ya está registrado.') {
                 setError("El número de identificación ya está registrado.");
             } else if (status === 'El número ya está registrado.') {
                 setError("El número ya está registrado.");
             }
-            else{
+            else {
                 setError("Error en el servidor. Intente nuevamente más tarde.");
             }
             setShowPopup(true); // Mostrar popup
@@ -223,7 +229,13 @@ const Registro = () => {
                                 id="identificacion"
                                 name="identificacion"
                                 value={formData.identificacion}
-                                onChange={handleChange} required />
+                                pattern="\d*"  // Acepta solo números
+                                maxLength={10}  // Limita a 10 dígitos
+                                onChange={(e) => {
+                                    if (/^\d*$/.test(e.target.value)) { // Solo permite números
+                                        setFormData({ ...formData, identificacion: e.target.value });
+                                    }
+                                }} required />
                         </div>
                         <div className="labelsAndInputs">
                             <label >Nombres Completos</label>
@@ -259,7 +271,13 @@ const Registro = () => {
                                 id="numero"
                                 name="numero"
                                 value={formData.numero}
-                                onChange={handleChange} required />
+                                pattern="\d*"  // Acepta solo números
+                                maxLength={10}  // Limita a 10 dígitos
+                                onChange={(e) => {
+                                    if (/^\d*$/.test(e.target.value)) {
+                                        setFormData({ ...formData, numero: e.target.value });
+                                    }
+                                }} required />
                         </div>
                         <div className="labelsAndInputs">
                             <label >Usuario</label>
@@ -278,7 +296,7 @@ const Registro = () => {
                                 name="contraseña"
                                 value={formData.contraseña}
                                 onChange={handleChange} required
-                            /> 
+                            />
                             {passwordError && <div className='errore'> {passwordError}</div>}
                         </div>
                         <div className="labelsAndInputs">
@@ -289,8 +307,8 @@ const Registro = () => {
                                 name="confirmarContraseña"
                                 value={formData.confirmarContraseña}
                                 onChange={handleChange} required
-                            /> 
-                            {confirmPasswordError && <div className='errore'> {confirmPasswordError}</div>}
+                            />
+                            {confirmPasswordError && <div className='errores'> {confirmPasswordError}</div>}
                         </div>
                         <div className="Buton">
                             <button type="submit">Registrate</button>
@@ -302,9 +320,9 @@ const Registro = () => {
                     </div>
 
                 </form>
-                
+
             </div>
-{showPopup && <Popup message={error} onClose={closePopup} />}
+            {showPopup && <Popup message={error} onClose={closePopup} />}
         </div>
     );
 }

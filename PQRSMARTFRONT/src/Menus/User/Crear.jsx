@@ -3,6 +3,7 @@ import '../User/Crear.css'
 import { Menu } from '../../componentes/Menu';
 import {UserinfoUser} from '../../componentes/Userinfo'
 import axios from 'axios';
+import Popup from '../../componentes/Popup'
 
 const Crear = () => {
 
@@ -26,6 +27,8 @@ const Crear = () => {
     const token = localStorage.getItem('token');
     const [archivo, setArchivo] = useState(null);
     const fileInputRef = useRef(null);
+    const [showPopup, setShowPopup] = useState(false);
+    const [error, setError] = useState('');
 
 
     useEffect(() => {
@@ -175,25 +178,31 @@ const Crear = () => {
             })], {
                 type: 'application/json'
             }));
+            setError('Espere.....')
+            setShowPopup(true); // Mostrar popup
             const respuesta = await axios.post('http://localhost:8080/api/request/save', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            
             console.log(respuesta.data)
             const responseData = respuesta.data;
             const numRadicado = responseData.radicado;
             console.log('radicado: ',numRadicado)
             console.log(respuesta)
-
-            alert('Solicitud Radicada Con Exito Su Numero De Radicado es: ' + numRadicado);
             handleReset();
+            setError('Solicitud Radicada Con Exito Su Numero De Radicado es: ' + numRadicado)
+            setShowPopup(true); // Mostrar popup
+            return;
         } catch (error) {
             console.error('Error al guardar información:', error.response ? error.response.data : error.message);
         }
 
     };
-
+    const closePopup = () => {
+        setShowPopup(false);
+    };
     return (
         <div className="Crear">
             <canvas id="gradient-canvas" style={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: -1 }}></canvas>
@@ -293,6 +302,7 @@ const Crear = () => {
                     </form>
                 </div>
             </div>
+            {showPopup && <Popup message={error} onClose={closePopup} />}
         </div>
 
     );

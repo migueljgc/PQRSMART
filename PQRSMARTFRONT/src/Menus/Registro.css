@@ -88,3 +88,34 @@
     z-index: 1;
 }
 
+.errore {
+    width: 250px;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    margin-left: 350px;
+}
+
+.labelsAndInputs:hover .errore {
+    visibility: visible;
+    opacity: 1;
+}
+.errores {
+    width: 250px;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    margin-left: 350px;
+    margin-top: 10px;
+}
+
