@@ -1,6 +1,5 @@
 .GestionCategoria {
     font-family: 'Montserrat', sans-serif;
-    background-color: #ebeef3;
     height: 100vh;
     display: grid;
     grid-template-columns: 0.5fr 1.5fr;

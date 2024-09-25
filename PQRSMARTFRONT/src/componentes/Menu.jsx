@@ -62,9 +62,9 @@ export const Menu = () => {
 export const MenuAdmin = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.setItem('logget', 'false');
-    localStorage.setItem('token', '');
-    localStorage.setItem('user', JSON.stringify(''));
+    localStorage.setItem('loggetPQRSMART', 'false');
+    localStorage.setItem('tokenPQRSMART', '');
+    localStorage.setItem('userPQRSMART', JSON.stringify(''));
     navigate('/Login');
   };
 
@@ -134,9 +134,9 @@ export const MenuAdmin = () => {
 export const MenuSecre = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.setItem('logget', 'false');
-    localStorage.setItem('token', '');
-    localStorage.setItem('user', JSON.stringify(''));
+    localStorage.setItem('loggetPQRSMART', 'false');
+    localStorage.setItem('tokenPQRSMART', '');
+    localStorage.setItem('userPQRSMART', JSON.stringify(''));
     navigate('/Login');
   };
 

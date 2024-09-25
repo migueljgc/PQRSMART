@@ -3,6 +3,7 @@ import '../Admin/Dashboard.css'
 import { MenuAdmin } from '../../componentes/Menu';
 import { UserinfoAmin } from '../../componentes/Userinfo';
 
+
 const Dashboard = () => {
     useEffect(() => {
         const script = document.createElement('script');

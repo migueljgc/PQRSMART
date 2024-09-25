@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserinfoAmin } from '../../componentes/Userinfo';
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineCancel } from "react-icons/md";
+import Popup from '../../componentes/Popup'
 
 
 const GestionCategoria = () => {
@@ -80,7 +81,7 @@ const GestionCategoria = () => {
         },
         {
             name: 'Estado Categoria',
-            selector: row => row.state.description
+            selector: row => row.state.description || row.state
         },
         {
             name: 'Editar',
