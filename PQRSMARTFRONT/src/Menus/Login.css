@@ -1,186 +1,203 @@
-html,
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+/* Mantén este código para el fondo con gradiente */
 body {
-  background-color: #05092F;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  /* Evita el scroll si no es necesario */
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.login {
-  position: absolute;
-  width: 100%;
-  background-color: #05092F;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 0.3fr;
-  grid-auto-columns: 1fr;
-  gap: 0px 2px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "logopqrsmart content";
+#gradient-canvas {
+    position: absolute;
+    --gradient-color-1: #07105F;
+    --gradient-color-2: #000B4C;
+    --gradient-color-3: #1A1E4D;
+    --gradient-color-4: #050A31;
+    z-index: -1;
 }
 
-.logopqrsmart {
-  grid-area: logopqrsmart;
-  background-color: #05092F;
-  align-items: center;
-  justify-content: center;
-  display: flex;
+/* Contenedor principal que aloja el logo y el formulario */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
 }
 
-.content {
-  grid-area: content;
+.login-box {
+    display: flex;
+    border-radius: 10px;
+    padding: 40px;
+    width: 800px;
+    justify-content: space-between;
 }
 
-.content {
-  top: 0;
-  /* Alinea el contenido al principio de la ventana */
-  background-color: #05092F;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Centra el contenido vertical y horizontalmente */
-  z-index: 2;
-  /* Asegura que el contenido esté por encima del fondo */
+/* Estilo de la sección del logo */
+.logo-section {
+    flex: 1;
+    text-align: center;
+    color: #34B0E3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.Formulario {
-  display: flex;
-  /* Usa flexbox para organizar los elementos */
-  justify-content: flex-start;
-  /* Centra el formulario horizontalmente */
-  padding: 30px;
-  /* Espaciado interno del formulario */
-  align-items: center;
-  /* Centra el formulario verticalmente */
-  height: 100vh;
-  /* Ocupa toda la altura de la ventana del navegador */
-  box-sizing: border-box;
-  /* Incluye padding y border en el cálculo del ancho y alto */
-  margin: 0;
-  text-align: center;
+.logo-section h1 {
+    font-size: 36px;
+    font-weight: 100;
 }
 
-/* Estilo del título del formulario */
-.Titulo {
-  font-family: 'Montserrat', sans-serif;
-  color: azure;
-  text-align: center;
-  /* Centra el texto del título */
-  margin-bottom: 20px;
-  /* Espacio debajo del título */
-  font-size: 45px;
-  line-height: 1.1;
+/* Línea vertical al lado del logo */
+.vertical-line {
+    width: 2px;
+    /* Ancho de la línea */
+    height: 300px;
+    /* Altura de la línea */
+    background-color: #34B0E3;
+    /* Color de la línea */
+    margin-left: 40px;
+    /* Espacio entre el texto y la línea */
+    align-self: center;
+    /* Centrar verticalmente la línea */
 }
 
-/* Estilo para los campos de entrada de texto y contraseña dentro de .Formulario */
-.Formulario input[type="text"],
-.Formulario input[type="password"] {
-  font-family: 'Montserrat', sans-serif;
-  width: 50%;
-  /* Hace que el campo ocupe todo el ancho disponible */
-  padding: 10px;
-  /* Espaciado interno dentro del campo */
-  border: 1px solid black;
-  /* Borde gris claro alrededor del campo */
-  border-radius: 8px;
-  /* Bordes redondeados en el campo */
-  margin-bottom: 20px;
-  /* Espacio debajo del campo */
-  background: #cadae5;
+/* Sección del formulario */
+.form-section {
+    flex: 1;
+}
+
+.form-section h2 {
+    margin-bottom: 20px;
+    color: #34B0E3;
+    text-align: center;
+}
+
+.user-box {
+    position: relative;
+}
+
+.user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+}
+
+.user-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+.user-box input:focus~label,
+.user-box input:valid~label {
+    top: -20px;
+    left: 0;
+    color: #f3f4f6;
+    font-size: 12px;
+}
+
+.btn-container {
+    text-align: center;
+}
+
+.btn {
+    box-sizing: border-box;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #f3f4f6;
+    border-radius: 0.6em;
+    color: #e74c3c;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.9rem;
+    padding: 0.8em 2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    transition: color 150ms ease-in-out;
+}
+
+.btn:hover,
+.btn:focus {
+    color: #fff;
+    outline: 0;
+}
+
+.fifth {
+    border-color: #f6f3f3;
+    border-radius: 0;
+    color: #f6f3f3;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.fifth:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 100%;
+    background: #063d75;
+    z-index: -1;
+    transition: width 150ms ease-in-out;
+}
+
+.fifth:hover {
+    color: #fff;
+}
+
+.fifth:hover:after {
+    width: 110%;
+}
+
+.title {
+    color: #00A3FF;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CheckboxYRegistro {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.80em;
+    color: #fff;
+    /* Color del texto */
+    text-align: center;
+    /* Centra el texto del párrafo */
+    justify-content: space-evenly;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
 
 }
 
-.Formulario label {
-  font-family: 'Montserrat', sans-serif;
-  color: azure;
-  font-size: 0.95em;
-}
+.CheckboxYRegistro label, a {
+    color: #fff;
+    /* Color del texto */
 
-a {
-  font-weight: 500;
-  color: #17f9ff;
-  text-decoration: inherit;
 }
 
 /* Estilo del enlace para recuperar la contraseña */
 .OlvidasteContra {
-  margin-top: 15px;
-  /* Espacio superior */
-  color: #cc7254;
-  /* Color del texto */
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.80em;
-  text-decoration: none;
-  /* Sin subrayado */
-}
-
-
-/* Estilo del botón en .BotonesYCheckbox */
-.Botones button {
-  background-color: #ec7548;
-  /* Color de fondo del botón */
-  color: white;
-  /* Color del texto del botón */
-  border: none;
-  /* Sin borde alrededor del botón */
-  padding: 10px 20px;
-  /* Espaciado interno (padding) */
-  border-radius: 8px;
-  /* Bordes redondeados */
-  font-family: 'Montserrat', sans-serif;
-  /* Fuente del botón */
-  font-size: 17px;
-  /* Tamaño de la fuente */
-  cursor: pointer;
-  /* Cambia el cursor cuando pasa sobre el botón */
-  transition: background-color 0.3s, transform 0.2s;
-  /* Transiciones suaves para el color y la transformación */
-  margin-bottom: 20px;
-  /* Espacio debajo del campo */
-  width: 55%;
-  font-weight: bold;
-}
-
-
-.BotonesYCheckbox button:focus {
-  outline: none;
-  /* Elimina el contorno por defecto en el enfoque */
-}
-
-/* Estilo del párrafo */
-.CheckboxYRegistro {
-  display: flex;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.80em;
-  color: #17f9ff;
-  /* Color del texto */
-  text-align: center;
-  /* Centra el texto del párrafo */
-  justify-content: space-evenly;
-
-
-}
-
-.CheckboxYRegistro label {
-  color: #17f9ff;
-  /* Color del texto */
-
-}
-
-@media (max-width: 768px) {
-  .Botones {
-    flex-direction: column;
-    /* Cambia a columna en pantallas pequeñas */
-    align-items: stretch;
-    /* Hace que el botón y el checkbox ocupen todo el ancho disponible */
-    gap: 20px;
-    /* Espacio adicional entre el botón y el checkbox */
-  }
+    color: #fff;
+    text-align: center;
 }
