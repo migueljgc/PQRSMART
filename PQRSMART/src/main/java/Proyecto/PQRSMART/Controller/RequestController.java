@@ -107,13 +107,14 @@ public class RequestController {
 
         // Guardar solicitud usando el servicio
         RequestDTO savedRequest;
+        RequestDTO searchRequest;
         try {
             savedRequest = requestServices.saves(request);
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar la solicitud");
         }
 
-        System.out.println(savedRequest);
         try{
 
                 // Generar PDF con iText
@@ -159,7 +160,9 @@ public class RequestController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al convertir a JSON");
         }
+        
 
+System.out.println(requestJson);
         // Devolver respuesta HTTP con estado 201 (creado)
         return ResponseEntity.status(HttpStatus.CREATED).body(requestJson);
     }
