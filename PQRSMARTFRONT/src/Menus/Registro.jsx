@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../Menus/Registro.css'
 import axios from 'axios';
+import Popup from '../componentes/Popup'
 
 const Registro = () => {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [identificationTypes, setIdentificationTypes] = useState([]);
     const [personTypes, setPersonTypes] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
+    const [error, setError] = useState('');
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
@@ -134,6 +137,7 @@ const Registro = () => {
                     dependence: { idDependence: formData.dependencia },
                     number: parseInt(formData.numero)
                 });
+
                 alert('Se ha enviado un mensaje de verificacion a su correo, si no le aparece verifique la carpeta de spam.');
                 console.log('Respuesta al guardar usuario:', userResponse.data);
                 console.log('Usuario registrado correctamente');
@@ -147,11 +151,29 @@ const Registro = () => {
             }
 
         } catch (error) {
-            console.error('Error al guardar información en la base de datos', error);
+            const status = error.response.data;
+            console.log(status)
+            // Manejo de errores
+            if (status === 'El correo electrónico ya está en uso.') {
+                setError('El correo electrónico ya está en uso.');
+            }else if (status === 'El usuario ya existe.') {
+                setError("El usuario ya existe.");
+            } else if (status === 'El número de identificación ya está registrado.') {
+                setError("El número de identificación ya está registrado.");
+            } else if (status === 'El número ya está registrado.') {
+                setError("El número ya está registrado.");
+            }
+            else{
+                setError("Error en el servidor. Intente nuevamente más tarde.");
+            }
+            setShowPopup(true); // Mostrar popup
+            return;
         }
 
     };
-
+    const closePopup = () => {
+        setShowPopup(false);
+    };
     return (
         <div className='Registro'>
             <canvas id="gradient-canvas" style={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: -1 }}></canvas>
@@ -280,8 +302,9 @@ const Registro = () => {
                     </div>
 
                 </form>
+                
             </div>
-
+{showPopup && <Popup message={error} onClose={closePopup} />}
         </div>
     );
 }

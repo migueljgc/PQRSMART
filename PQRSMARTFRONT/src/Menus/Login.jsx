@@ -1,157 +1,8 @@
-/*import './Login.css'
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-
-function Login() {
-    const navigate = useNavigate();
-    const [user, setUser] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [isLogged, setIsLogged] = useState('');
-
-    useEffect(() => {
-        document.title = "Login"
-        const storedUsername = localStorage.getItem('username');
-
-
-        if (storedUsername) {
-            setUser(storedUsername);
-            setRememberMe(true);
-        }
-        checkLoginStatus();
-    }, []);
-    const checkLoginStatus = () => {
-        const logged = localStorage.getItem('loggetPQRSMART') === 'true';
-        setIsLogged(logged);
-        console.log('loggetPQRSMART: ', logged);
-        if (logged) {
-            const userData = JSON.parse(localStorage.getItem('userPQRSMART'));
-            if (userData) {
-                const { role } = userData;
-                if (role === 'ADMIN') {
-                    navigate('/HomePagesAdmin');
-                } else if (role === 'USER') {
-                    navigate('/HomePage');
-                } else if (role === 'SECRE') {
-                    navigate('/HomePagesSecre');
-                }
-            }
-        }
-
-    };
-    const onLogin = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await axios.post('http://localhost:8080/api/auth/authenticate', {
-                user,
-                password,
-            });
-            console.log(response)
-            if (response.status === 200) {
-                const responseData = response.data;
-                console.log(responseData)
-
-                const { token, authorities } = response.data;
-                localStorage.setItem('tokenPQRSMART', token);
-                localStorage.setItem('userPQRSMART', JSON.stringify({ user, role: authorities[0] })); // Assuming single role
-                const response1 = await axios.get('http://localhost:8080/api/auth/editar', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                console.log(response1)
-                const stateUser = response1.data.stateUser.state;
-                console.log(stateUser)
-                if (stateUser === 'INACTIVO' || stateUser ==='DESACTIVADO') {
-                    alert('Usuario Inactivo');
-                    return;
-                }
-                localStorage.removeItem('username');
-                const users = (response1.data.user)
-                console.log(users)
-                localStorage.setItem('users', users);
-                if (authorities.includes('ADMIN')) {
-                    window.location.href = '/HomePagesAdmin';
-                    localStorage.setItem('loggetPQRSMART', true);
-                } else if (authorities.includes('USER')) {
-                    window.location.href = '/HomePage';
-                    localStorage.setItem('loggetPQRSMART', true);
-                } else if (authorities.includes('SECRE')) {
-                    window.location.href = '/HomePagesSecre';
-                    localStorage.setItem('loggetPQRSMART', true);
-                } else {
-
-                    window.location.href = '/';
-
-                }
-
-            } else {
-                alert('Credenciales incorrectas');
-            }
-        } catch (error) {
-            console.error('Error al obtener los datos de la base de datos:', error);
-            alert('Credenciales incorrectas');
-        }
-
-        if (rememberMe) {
-            localStorage.removeItem('username')
-            localStorage.setItem('username', user);
-        }
-    }
-    if (isLogged) {
-        return null; // o un spinner si quieres mostrar algo mientras se redirige
-    }
-
-    return (
-        <div className="login">
-            <div className="logopqrsmart">
-            <img src="/images/logo2.png" alt="Logo" />
-            </div>
-            <div className="content">
-                <div className="Formulario" onSubmit={onLogin}>
-                    <form>
-                        <div className="Titulo">
-                            <h1>Iniciar Sesión</h1>
-                        </div>
-                        <div className="Campo">
-                            <input placeholder='Usuario' type="text" id="user" value={user} onChange={e => setUser(e.target.value)} required />
-                        </div>
-                        <div className="Campo">
-                            <input placeholder='Contraseña' type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required />
-                        </div>
-                        <div className="Botones">
-                            <button type="submit">INGRESAR</button>
-                        </div>
-                        <div className="Checkbox">
-                            <div className="CheckboxYRegistro">
-                                <a href="/Registro">Registrar</a>
-                                <label>
-                                    <input type="checkbox" checked={rememberMe}
-                                        onChange={(e) => setRememberMe(e.target.checked)} />
-                                    Recordar
-                                </label>
-                            </div>
-                        </div>
-                        <div className="OlvidasteContra">
-                            <a href="/Recuperacion">¿Olvidaste tu contraseña?</a>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    )
-}
-
-export default Login*/ 
-
 import React, { useEffect, useState } from 'react';
 import './Login.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Popup from '../componentes/Popup'
 
 function Login() {
     const navigate = useNavigate();
@@ -159,6 +10,8 @@ function Login() {
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [isLogged, setIsLogged] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const [error, setError] = useState('');
 
     // Cargar el archivo Gradient.js
     useEffect(() => {
@@ -217,6 +70,7 @@ function Login() {
                 password,
             });
             console.log(response)
+
             if (response.status === 200) {
                 const responseData = response.data;
                 console.log(responseData)
@@ -229,13 +83,6 @@ function Login() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log(response1)
-                const stateUser = response1.data.stateUser.state;
-                console.log(stateUser)
-                if (stateUser === 'INACTIVO' || stateUser ==='DESACTIVADO') {
-                    alert('Usuario Inactivo');
-                    return;
-                }
                 localStorage.removeItem('username');
                 const users = (response1.data.user)
                 console.log(users)
@@ -255,14 +102,22 @@ function Login() {
 
                 }
 
-            } else {
-                alert('Credenciales incorrectas');
             }
         } catch (error) {
-            console.error('Error al obtener los datos de la base de datos:', error);
-            alert('Credenciales incorrectas');
+            const status = error.response && error.response.status;
+            // Manejo de errores
+            if (status === 401) {
+                setError('Contraseña incorrecta');
+            }else if (status === 403) {
+                setError("La cuenta está inactiva. Por favor verifique su correo para activar.");
+            } else if (status === 423) {
+                setError("La cuenta está bloqueada.");
+            } else if (status === 500) {
+                setError("Error en el servidor. Intente nuevamente más tarde.");
+            }
+            setShowPopup(true); // Mostrar popup
+            return;
         }
-
         if (rememberMe) {
             localStorage.removeItem('username')
             localStorage.setItem('username', user);
@@ -273,7 +128,9 @@ function Login() {
         return null; // o un spinner si quieres mostrar algo mientras se redirige
     }
 
-
+    const closePopup = () => {
+        setShowPopup(false);
+    };
     return (
         <div className="login-container">
             <canvas id="gradient-canvas" style={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: -1 }}></canvas>
@@ -321,7 +178,7 @@ function Login() {
                         </div>
                     </form>
                 </div>
-                
+                {showPopup && <Popup message={error} onClose={closePopup} />}
             </div>
         </div>
     );
