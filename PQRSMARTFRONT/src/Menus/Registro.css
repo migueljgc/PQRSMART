@@ -23,8 +23,8 @@
 
 .Campos {
     /* Espacio entre el label y el input */
-    background: #f7faff;
-    border: 1px solid black;
+    /*background: #f7faff;*/
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 15px;
     width: 100%;
     padding: 20px;
@@ -35,7 +35,7 @@
     margin-bottom: 14px;
     display: flex;
     justify-content: space-between;
-    
+    color: white;
 
 }
 
@@ -71,10 +71,12 @@
     font-size: 14px;  
     margin-right: 40px;  
     margin-left: 50px;
+    color: white;
 }
 .A{
-    color: #000;
+    color: #ffffff;
     font-weight: bold;
+    
 }
 
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../Menus/Registro.css'
 import axios from 'axios';
 import Popup from '../componentes/Popup'
+import { useNavigate } from 'react-router-dom';
 
 const Registro = () => {
     const [passwordError, setPasswordError] = useState('');
@@ -10,6 +11,8 @@ const Registro = () => {
     const [personTypes, setPersonTypes] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const [error, setError] = useState('');
+    const [isLogged, setIsLogged] = useState('');
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
@@ -23,10 +26,29 @@ const Registro = () => {
         tipoPersona: '',
         dependencia: 7,
     });
+    const checkLoginStatus = () => {
+        const logged = localStorage.getItem('loggetPQRSMART') === 'true';
+        setIsLogged(logged);
+        
+        if (logged) {
+            const userData = JSON.parse(localStorage.getItem('userPQRSMART'));
+            if (userData) {
+                const { role } = userData;
+                if (role === 'ADMIN') {
+                    navigate('/HomePagesAdmin');
+                } else if (role === 'USER') {
+                    navigate('/HomePage');
+                } else if (role === 'SECRE') {
+                    navigate('/HomePagesSecre');
+                }
+            }
+        }
+
+    };
 
     useEffect(() => {
         document.title = "Registro"
-
+        checkLoginStatus();
         const fetchIdentificationTypes = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/api/identification_type/get');
@@ -180,6 +202,9 @@ const Registro = () => {
     const closePopup = () => {
         setShowPopup(false);
     };
+    if (isLogged) {
+        return null; // o un spinner si quieres mostrar algo mientras se redirige
+    }
     return (
         <div className='Registro'>
             <canvas id="gradient-canvas" style={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: -1 }}></canvas>
