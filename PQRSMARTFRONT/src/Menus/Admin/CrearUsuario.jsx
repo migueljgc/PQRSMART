@@ -177,19 +177,19 @@ const CrearUsuario = () => {
                 <MenuAdmin />
             </div>
             <div className="cuerpos">
-            <div className="headers">
+                <div className="headers">
                     <h1 className="title">CREAR USUARIO</h1>
                     <div className="user-menu">
-                        <UserinfoAmin/>
+                        <UserinfoAmin />
 
                     </div>
                 </div>
-                
+
                 <div className="form">
-                    <form className="solicitud-form" onSubmit={handleSubmit}>
-                        <div className="input-box2">
+                    <form className="crearusu" onSubmit={handleSubmit}>
+                        <div className="input-label">
                             <label >Tipo De Persona</label>
-                            <select 
+                            <select
                                 id="tipoPersona"
                                 name="tipoPersona"
                                 value={formData.tipoPersona}
@@ -203,9 +203,9 @@ const CrearUsuario = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Tipo De Identificacion</label>
-                            <select 
+                            <select
                                 id="tipoIdentificacion"
                                 name="tipoIdentificacion"
                                 value={formData.tipoIdentificacion}
@@ -219,34 +219,34 @@ const CrearUsuario = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Numero De Identificacion</label>
-                            <input 
+                            <input
                                 type="text"
                                 id="identificacion"
                                 name="identificacion"
                                 value={formData.identificacion}
                                 onChange={handleChange} required />
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Nombres Completos</label>
-                            <input 
+                            <input
                                 type="text"
                                 id="nombre"
                                 name="nombre"
                                 value={formData.nombre}
                                 onChange={handleChange} required />
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Apellidos Completos</label>
-                            <input 
+                            <input
                                 type="text"
                                 id="apellido"
                                 name="apellido"
                                 value={formData.apellido}
                                 onChange={handleChange} required />
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Correo Electronico</label>
                             <input
                                 type="email"
@@ -255,27 +255,27 @@ const CrearUsuario = () => {
                                 value={formData.correo}
                                 onChange={handleChange} required />
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Telefono</label>
-                            <input 
+                            <input
                                 type="text"
                                 id="numero"
                                 name="numero"
                                 value={formData.numero}
                                 onChange={handleChange} required />
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Usuario</label>
-                            <input 
+                            <input
                                 type="text"
                                 id="usuario"
                                 name="usuario"
                                 value={formData.usuario}
                                 onChange={handleChange} required />
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Contraseña</label>
-                            <input 
+                            <input
                                 type="password"
                                 id="contraseña"
                                 name="contraseña"
@@ -284,9 +284,9 @@ const CrearUsuario = () => {
                             />
                             {passwordError && <div className='errore'> {passwordError}</div>}
                         </div>
-                        <div className="input-box2">
+                        <div className="input-label">
                             <label >Confirmar Contraseña</label>
-                            <input 
+                            <input
                                 type="password"
                                 id="confirmarContraseña"
                                 name="confirmarContraseña"
@@ -295,8 +295,8 @@ const CrearUsuario = () => {
                             />
                             {confirmPasswordError && <div className='errore'> {confirmPasswordError}</div>}
                         </div>
-                        <div className="input-box2">
-                        <label >Roles:</label><br />
+                        <div className="input-label">
+                            <label >Roles:</label><br />
                             <select
                                 id="rol"
                                 name="rol"
@@ -305,12 +305,12 @@ const CrearUsuario = () => {
                             >
                                 <option key="" value="">Seleccione el tipo</option>
                                 <option value="USER">USER</option>
-                                <option  value="ADMIN">ADMIN</option>
-                                <option  value="SECRE">SECRE</option>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="SECRE">SECRE</option>
                             </select>
                         </div>
-                        <div className="input-box2">
-                        <label>Dependencia:</label><br />
+                        <div className="input-label">
+                            <label>Dependencia:</label><br />
                             <select
                                 id="dependencia"
                                 name="dependencia"
