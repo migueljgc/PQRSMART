@@ -206,14 +206,13 @@ const Registro = () => {
         return null; // o un spinner si quieres mostrar algo mientras se redirige
     }
     return (
-        <div className='Registro'>
+        <div className='RegistroUser'>
             <canvas id="gradient-canvas" style={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: -1 }}></canvas>
             <div className="FormularioRegistro">
-
                 <form className='forms' onSubmit={handleSubmit}>
-                    <title className="Title">
-                        Registrate
-                    </title>
+                    <div className="tituloRegistro">
+                        <h1>Registrate</h1>
+                    </div>
                     <div className="Campos">
                         <div className="labelsAndInputs">
                             <label >Tipo De Persona</label>

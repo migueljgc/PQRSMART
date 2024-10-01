@@ -140,7 +140,7 @@ function Login() {
                     <div className="vertical-line"></div> {/* Línea vertical */}
                 </div>
                 <div className="form-section">
-                    <div className="title">
+                    <div className="titulologin">
                         <h1>Iniciar sesión</h1>
                     </div>
                     <form onSubmit={onLogin}>
